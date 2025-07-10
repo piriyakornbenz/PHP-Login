@@ -2,6 +2,11 @@
 
 require __DIR__ . '/config/config.php';
 
+if (!isset($_SESSION['user_login']) || $_SESSION['logged_in'] !== true) {
+    header('Location: ./index.php');
+    exit();
+}
+
 $stmt = $conn->prepare("SELECT * FROM users WHERE id=:id");
 $stmt->execute([$_SESSION['user_login']]);
 $user = $stmt->fetch();
